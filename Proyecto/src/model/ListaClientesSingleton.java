@@ -6,10 +6,10 @@ import java.util.List;
 public class ListaClientesSingleton {
     
     private static ListaClientesSingleton instance;
-    private List<DatosCliente> clientes;
+    private List<Cliente> clientes;
     
     private ListaClientesSingleton(){
-        clientes = new ArrayList<DatosCliente>();
+        clientes = new ArrayList<Cliente>();
     }
     
     public static synchronized ListaClientesSingleton getInstance(){
@@ -19,32 +19,33 @@ public class ListaClientesSingleton {
         return instance;
     }
 
-    public synchronized void setClientes(List<DatosCliente> clientes) {
+    public synchronized void setClientes(List<Cliente> clientes) {
         this.clientes = clientes;
     }
 
-    public synchronized List<DatosCliente> getClientes() {
+    public synchronized List<Cliente> getClientes() {
         return clientes;
     }
 
-    public synchronized void removeCliente(DatosCliente dc){
+    public synchronized void removeCliente(Cliente dc){
     	System.out.println("Cliente eliminado: " + dc.getNickname());
         clientes.remove(dc);
     }
 
-    public synchronized void addCliente(DatosCliente dc){
+    public synchronized void addCliente(Cliente dc){
     	System.out.println("Cliente añadido: " + dc.getNickname());
         clientes.add(dc);
     }
 
     public synchronized void mandarMensajeTodos(String mensaje){
-        for (DatosCliente datosCliente : clientes) {
-            datosCliente.getSalida().println(mensaje);
+        for (Cliente datosCliente : clientes) {
+            datosCliente.getfSalida().println(mensaje);
+            datosCliente.getfSalida().flush();
         }
     }
 
-    public synchronized DatosCliente getCienteEspecifico(String username){
-        for (DatosCliente datosCliente : clientes) {
+    public synchronized Cliente getCienteEspecifico(String username){
+        for (Cliente datosCliente : clientes) {
             if(username.equals(datosCliente.getNickname())){
                 return datosCliente;
             }

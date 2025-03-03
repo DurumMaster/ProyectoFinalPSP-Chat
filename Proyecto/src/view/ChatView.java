@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import controller.Controller;
+import service.ClienteChat;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -21,9 +23,8 @@ public class ChatView extends JFrame {
 	private JTextArea taChat;
 	private JTextArea taUsuarios;
 	private JLabel lblCantUsuActual;
-
+	
 	public ChatView() {
-		solicitarNickname();
 		configurarFrame();
 		configurarComponentes();
 	}
@@ -68,11 +69,12 @@ public class ChatView extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
-    private void solicitarNickname() {
-    	String nickname;
+    public String solicitarNickname() {
+    	String nickname = null;
         do {
             nickname = JOptionPane.showInputDialog(this, "Introduce tu nickname:", "Bienvenido", JOptionPane.QUESTION_MESSAGE);
         } while (nickname == null || nickname.trim().isEmpty());
+        return nickname;
     }
 
 	public void hacerVisible() {
@@ -81,10 +83,19 @@ public class ChatView extends JFrame {
 	
 	public void setListener (Controller c) {
 		btnEnviar.addActionListener(c);
+		txtMensaje.addActionListener(c);
 	}
 	
 	public JButton getBtnEnviar() {
 		return btnEnviar;
+	}
+	
+	public JTextField getTxtMensaje() {
+		return txtMensaje;
+	}
+
+	public void mostrarMensaje(String mensaje) {
+		taChat.append(mensaje + "\n");
 	}
 }
 

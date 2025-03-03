@@ -43,13 +43,12 @@ public class HiloServidorChat extends Thread {
 	@Override
 	public void run() {
 		String nickname = "";
-        String mensaje;        
-        DatosCliente dc = null;
+        String mensaje;
         try {
             nickname = fEntrada.readLine();
-            dc = new DatosCliente(nickname, socket, fSalida);
-            System.out.println(nickname + " - Ha entrado en el chat\n" + socket.toString());
-            ListaClientesSingleton.getInstance().addCliente(dc);
+            String entrada = nickname + " - Ha entrado en el chat";
+            ListaClientesSingleton.getInstance().mandarMensajeTodos(entrada);
+            escribirLog(entrada);
             while (true) {
                 
                 mensaje = fEntrada.readLine();
@@ -57,23 +56,33 @@ public class HiloServidorChat extends Thread {
                 mensaje = nickname + "> " + mensaje;
 
                 ListaClientesSingleton.getInstance().mandarMensajeTodos(mensaje);
-
-                writer.write(mensaje);
-                writer.newLine();
-                writer.flush();
+                escribirLog(mensaje);
             }
             
         } catch (Exception e) {
-            // TODO: handle exception
-        }
-		ListaClientesSingleton.getInstance().removeCliente(dc);
-		System.out.println("Finalizada conexión con el cliente: " + socket.toString());
-		
-		fSalida.close();
+            System.out.println("Ha ocurrido un error al mandar el mensaje");
+            System.out.println(e.getStackTrace().toString());
+        } finally {
+        	
+        	escribirLog(nickname + " -  ha salido del chat");
+        	ListaClientesSingleton.getInstance().mandarMensajeTodos(nickname + " -  ha salido del chat");
+        	try {
+        		if(fSalida != null) fSalida.close();
+        		if(fEntrada != null) fEntrada.close();
+        		if(socket != null) socket.close();
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        	}			
+		}
+	}
+	
+	private void escribirLog(String mensaje) {
 		try {
-			fEntrada.close();
-			socket.close();
+			writer.write(mensaje);
+			writer.newLine();
+			writer.flush();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

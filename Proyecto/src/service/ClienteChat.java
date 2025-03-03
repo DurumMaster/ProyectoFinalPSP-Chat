@@ -8,7 +8,10 @@ import java.net.Socket;
 
 public class ClienteChat{
 
-    public static void main(String[] args) {
+	private String nickname;
+	private String mensaje;
+	
+    public ClienteChat() {
         String host = "localhost";
         int puerto = 6969;
         
@@ -22,19 +25,14 @@ public class ClienteChat{
             
 			fSalida = new PrintWriter(cliente.getOutputStream(), true);
 			fEntrada = new BufferedReader(new InputStreamReader(cliente.getInputStream()));
-            
-			in = new BufferedReader(new InputStreamReader(System.in));
-			
-			String nickname, mensajeUsu, mensaje;
+            			
+			String mensajeUsu, mensaje;
 			
             System.out.print("Introduzca su nickname: ");
-            nickname = in.readLine();
             fSalida.println(nickname);
 
 			while (true) {
-                System.out.print("Mensaje: ");
-                mensajeUsu = in.readLine();
-                fSalida.println(mensajeUsu);
+				//fSalida.println(this.mensaje);
 				mensaje = fEntrada.readLine();
 				System.out.println(mensaje);
 			}
@@ -58,4 +56,12 @@ public class ClienteChat{
 			}
 		}
     }
+    
+    public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+    
+    public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }

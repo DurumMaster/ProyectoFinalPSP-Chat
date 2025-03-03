@@ -15,7 +15,7 @@ public class ServidorChat {
 			System.out.println("Servidor Iniciado...");
 			
 			while(true) {
-				cliente = new Socket();
+				//cliente = new Socket();
 				cliente = servidor.accept();
 				
 				HiloServidorChat HS = new HiloServidorChat(cliente);
