@@ -1,0 +1,18 @@
+Aaa> A
+Manuel> A
+JIIJ> A
+JIIJ> S
+Paco> Pepe
+Paco> Buenos dias
+Juan> a
+Juan> a
+Juan> s
+Paco> s
+Paco> d
+Paco> s
+Paco> a
+Paco> s
+Paco> d
+Paco> f
+Paco> s
+Paco> df
