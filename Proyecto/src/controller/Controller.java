@@ -6,12 +6,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 import model.Cliente;
+import model.ListaClientesSingleton;
 import view.ChatView;
 
 public class Controller implements ActionListener {
 
-	ChatView cv;
+	private ChatView cv;
 	private Cliente cliente;
+	
 	public Controller(ChatView cv, Cliente cliente) {
 		this.cv = cv;
 		this.cliente = cliente;

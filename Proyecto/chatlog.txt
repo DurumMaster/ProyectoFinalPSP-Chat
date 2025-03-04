@@ -1,6 +1,6 @@
-jkl - Ha entrado en el chat
-jkl> asd
-jkl -  ha salido del chat
-njk - Ha entrado en el chat
-njk> asd
-njk -  ha salido del chat
+Julian - Ha entrado en el chat
+Julian> hola equipo
+Pablo - Ha entrado en el chat
+Pablo> Buenos dias
+Pablo -  ha salido del chat
+Julian -  ha salido del chat

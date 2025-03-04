@@ -15,11 +15,10 @@ public class ServidorChat {
 			System.out.println("Servidor Iniciado...");
 			
 			while(true) {
-				//cliente = new Socket();
 				cliente = servidor.accept();
-				
-				HiloServidorChat HS = new HiloServidorChat(cliente);
-				HS.start();
+				System.out.println("Nueva Conexión aceptada");
+				HiloServidorChat hilo = new HiloServidorChat(cliente);
+				hilo.start();
 			}
 			
 		} catch (IOException e) {

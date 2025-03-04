@@ -22,14 +22,14 @@ public class HiloServidorChat extends Thread {
             - Mandar mensaje a todos
     */
 
-	BufferedReader fEntrada;
-	PrintWriter fSalida;
-	Socket socket = null;
-    BufferedWriter writer;
+	private Socket socket;
+	private BufferedReader fEntrada;
+	private PrintWriter fSalida;
+	private BufferedWriter writer;
+	private String nickname;
 
 	public HiloServidorChat(Socket s) {
 		socket = s;
-		// Streams de entrada y salida
 		try {
 			fSalida = new PrintWriter(socket.getOutputStream(), true);
 			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -42,30 +42,34 @@ public class HiloServidorChat extends Thread {
 	
 	@Override
 	public void run() {
-		String nickname = "";
-        String mensaje;
         try {
             nickname = fEntrada.readLine();
-            String entrada = nickname + " - Ha entrado en el chat";
-            ListaClientesSingleton.getInstance().mandarMensajeTodos(entrada);
-            escribirLog(entrada);
+            
+            DatosCliente clienteServidor = new DatosCliente(nickname, socket, fSalida);
+            ListaClientesSingleton.getInstance().addCliente(clienteServidor);
+            
+            String mensajeEntradaUsu = nickname + " - Ha entrado en el chat";
+            ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajeEntradaUsu);
+            escribirLog(mensajeEntradaUsu);
+            
+            String mensaje, mensajePreparado;
             while (true) {
-                
                 mensaje = fEntrada.readLine();
                 
-                mensaje = nickname + "> " + mensaje;
-
-                ListaClientesSingleton.getInstance().mandarMensajeTodos(mensaje);
-                escribirLog(mensaje);
+                mensajePreparado = nickname + "> " + mensaje;
+                
+                ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajePreparado);
+                escribirLog(mensajePreparado);
             }
             
         } catch (Exception e) {
-            System.out.println("Ha ocurrido un error al mandar el mensaje");
+            System.out.println("Ha ocurrido un error en el hilo del servidor" + e.getMessage());
             System.out.println(e.getStackTrace().toString());
         } finally {
-        	
-        	escribirLog(nickname + " -  ha salido del chat");
-        	ListaClientesSingleton.getInstance().mandarMensajeTodos(nickname + " -  ha salido del chat");
+        	String mensajeSalidaUsu = nickname + " -  ha salido del chat";
+        	ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
+        	escribirLog(mensajeSalidaUsu);
+        	ListaClientesSingleton.getInstance().removeCliente(nickname);
         	try {
         		if(fSalida != null) fSalida.close();
         		if(fEntrada != null) fEntrada.close();
@@ -82,7 +86,7 @@ public class HiloServidorChat extends Thread {
 			writer.newLine();
 			writer.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Error al escribir en el fichero" + e.getMessage());
 			e.printStackTrace();
 		}
 	}

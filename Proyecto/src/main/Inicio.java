@@ -19,16 +19,12 @@ public class Inicio {
 				
 				String nickname = cv.solicitarNickname();
 				
-				Cliente cliente = new Cliente("localhost", 6969, nickname, cv);					
-				ListaClientesSingleton.getInstance().addCliente(cliente);
+				Cliente cliente = new Cliente("localhost", 6969, nickname, cv);
 				
 				Controller c = new Controller(cv, cliente);
 				
 				cv.setListener(c);
 				cv.hacerVisible();
-				
-				cliente.leer = true;
-				
 			}
 		});
 		

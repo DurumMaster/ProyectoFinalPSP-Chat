@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import javax.swing.SwingUtilities;
+
 import view.ChatView;
 
 public class Cliente implements Runnable{
@@ -20,12 +22,14 @@ public class Cliente implements Runnable{
 		try {
 			socket = new Socket(host, puerto);
 			fSalida = new PrintWriter(socket.getOutputStream(), true);			
-			fSalida.println(nickname);
 			this.nickname = nickname;
 			this.cv = cv;
+			
+			fSalida.println(nickname);
+			
 			new Thread(this).start();
 		} catch (Exception e) {
-			System.out.println("Ha ocurrido un problema al generar el usuario");
+			System.out.println("Error al conectar con el servidor: " + e.getMessage());
 		}
 	}
 	
@@ -35,43 +39,28 @@ public class Cliente implements Runnable{
 	
 	public void cerrarConexion() {
 		try {
-			fSalida.close();
-			socket.close();
-		} catch (Exception e) {
-			System.out.println("Fallo al cerrar la conexion");
-		}
-	}
-	
-	public PrintWriter getfSalida() {
-		return fSalida;
-	}
-	
-	public String getNickname() {
-		return nickname;
+            if(fSalida != null)
+                fSalida.close();
+            if(socket != null)
+                socket.close();
+        } catch (Exception e) {
+            System.out.println("Fallo al cerrar la conexión");
+        }
 	}
 
 	@Override
 	public void run() {
-		BufferedReader fEntrada = null;
-		System.out.println("A");
-		try {
-			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			System.out.println("A");
+		try (BufferedReader fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 			String mensaje;
 			while((mensaje = fEntrada.readLine()) != null) {
 				cv.mostrarMensaje(mensaje);
-				System.out.println("A");
 			}
 		} catch (IOException e) {
 			System.out.println("Error al recibir el mensaje");
 			e.printStackTrace();
-		} finally {
-			try {
-				if(fEntrada != null) fEntrada.close();
-			} catch (Exception e2) {
-				System.out.println("Error al cerrar la entrada");
-			}
 		}
+		
+		// TODO: Cerrar salida??
 	}
 	
 }

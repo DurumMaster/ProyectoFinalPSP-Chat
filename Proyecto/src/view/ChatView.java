@@ -74,7 +74,13 @@ public class ChatView extends JFrame {
         do {
             nickname = JOptionPane.showInputDialog(this, "Introduce tu nickname:", "Bienvenido", JOptionPane.QUESTION_MESSAGE);
         } while (nickname == null || nickname.trim().isEmpty());
+        setTitle("Char divertido: " + nickname);
         return nickname;
+    }
+    
+    public void mostrarMensaje(String mensaje) {
+    	System.out.println("Mostrar mensaje ui: " + mensaje);
+    	taChat.append(mensaje + "\n");
     }
 
 	public void hacerVisible() {
@@ -94,9 +100,6 @@ public class ChatView extends JFrame {
 		return txtMensaje;
 	}
 
-	public void mostrarMensaje(String mensaje) {
-		taChat.append(mensaje + "\n");
-	}
 }
 
 
