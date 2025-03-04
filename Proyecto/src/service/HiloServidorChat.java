@@ -9,18 +9,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import model.DatosCliente;
-import model.ListaClientesSingleton;
+import model.ListaClientesServidorSingleton;
 
 public class HiloServidorChat extends Thread {
-
-    /*
-        - Solicitar nickname (No se pueden 2 nombres iguales)
-        - Bucle infinito:
-            - Recoger el mensaje recibido
-            - Transformar el mensaje a como se envía
-            - Escribirlo en el fichero
-            - Mandar mensaje a todos
-    */
 
 	private Socket socket;
 	private BufferedReader fEntrada;
@@ -46,10 +37,11 @@ public class HiloServidorChat extends Thread {
             nickname = fEntrada.readLine();
             
             DatosCliente clienteServidor = new DatosCliente(nickname, socket, fSalida);
-            ListaClientesSingleton.getInstance().addCliente(clienteServidor);
+            ListaClientesServidorSingleton.getInstance().addCliente(clienteServidor);
+            ListaClientesServidorSingleton.getInstance().getCantUsu();
             
             String mensajeEntradaUsu = nickname + " - Ha entrado en el chat";
-            ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajeEntradaUsu);
+            ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeEntradaUsu);
             escribirLog(mensajeEntradaUsu);
             
             String mensaje, mensajePreparado;
@@ -58,7 +50,7 @@ public class HiloServidorChat extends Thread {
                 
                 mensajePreparado = nickname + "> " + mensaje;
                 
-                ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajePreparado);
+                ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajePreparado);
                 escribirLog(mensajePreparado);
             }
             
@@ -67,9 +59,10 @@ public class HiloServidorChat extends Thread {
             System.out.println(e.getStackTrace().toString());
         } finally {
         	String mensajeSalidaUsu = nickname + " -  ha salido del chat";
-        	ListaClientesSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
+        	ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
         	escribirLog(mensajeSalidaUsu);
-        	ListaClientesSingleton.getInstance().removeCliente(nickname);
+        	ListaClientesServidorSingleton.getInstance().removeCliente(nickname);
+        	ListaClientesServidorSingleton.getInstance().getCantUsu();
         	try {
         		if(fSalida != null) fSalida.close();
         		if(fEntrada != null) fEntrada.close();

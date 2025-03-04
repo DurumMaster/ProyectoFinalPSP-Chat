@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 
 import controller.Controller;
-import service.ClienteChat;
+import model.ListaClientesSingleton;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -73,8 +73,12 @@ public class ChatView extends JFrame {
     	String nickname = null;
         do {
             nickname = JOptionPane.showInputDialog(this, "Introduce tu nickname:", "Bienvenido", JOptionPane.QUESTION_MESSAGE);
-        } while (nickname == null || nickname.trim().isEmpty());
-        setTitle("Char divertido: " + nickname);
+            if (ListaClientesSingleton.getInstance().existeNickname(nickname)) {
+            	System.out.println("Entra validacion nombre");
+            	JOptionPane.showMessageDialog(this, "Error", "Este nickname ya está registrado", JOptionPane.ERROR_MESSAGE);
+            }
+        } while (nickname == null || nickname.trim().isEmpty() || ListaClientesSingleton.getInstance().existeNickname(nickname));
+        setTitle("Chat divertido: " + nickname);
         return nickname;
     }
     

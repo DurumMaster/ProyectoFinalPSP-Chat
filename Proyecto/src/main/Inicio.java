@@ -3,7 +3,7 @@ package main;
 import java.awt.EventQueue;
 
 import controller.Controller;
-import model.Cliente;
+import model.ClienteChat;
 import model.ListaClientesSingleton;
 import view.ChatView;
 
@@ -18,9 +18,9 @@ public class Inicio {
 				ChatView cv = new ChatView();
 				
 				String nickname = cv.solicitarNickname();
-				
-				Cliente cliente = new Cliente("localhost", 6969, nickname, cv);
-				
+					
+				ClienteChat cliente = ListaClientesSingleton.getInstance().addCliente("localhost", 6969, nickname, cv);					
+					
 				Controller c = new Controller(cv, cliente);
 				
 				cv.setListener(c);

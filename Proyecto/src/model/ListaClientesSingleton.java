@@ -8,10 +8,10 @@ import view.ChatView;
 public class ListaClientesSingleton {
     
     private static ListaClientesSingleton instance;
-    private List<DatosCliente> clientes;
+    private static List<ClienteChat> clientes;
     
     private ListaClientesSingleton(){
-        clientes = new ArrayList<DatosCliente>();
+        clientes = new ArrayList<ClienteChat>();
     }
     
     public static synchronized ListaClientesSingleton getInstance(){
@@ -21,37 +21,39 @@ public class ListaClientesSingleton {
         return instance;
     }
 
-    public synchronized List<DatosCliente> getClientes() {
+    public synchronized List<ClienteChat> getClientes() {
         return clientes;
     }
 
     public synchronized void removeCliente(String nickname){
     	clientes.removeIf(cliente -> cliente.getNickname().equals(nickname));
-        System.out.println("Cliente removido del servidor: " + nickname);
-    }
-
-    public synchronized void addCliente(DatosCliente cliente) {
-    	clientes.add(cliente);
-        System.out.println("Cliente añadido: " + cliente.getNickname()); 
+        System.out.println("Cliente removido : " + nickname);
     }
     
-    public synchronized void mandarMensajeTodos(String mensaje){
-    	System.out.println("Lista de clientes: " + getInstance().getClientes());
-    	System.out.println("Envio mensaje a todos: " + mensaje);
-    	for (DatosCliente datosCliente : clientes) {
-        	System.out.println(datosCliente.toString());
-            datosCliente.getSalida().println(mensaje);
-            datosCliente.getSalida().flush();
-        }
+//    public synchronized ClienteChat getCienteEspecifico(String username){
+//        for (ClienteChat datosCliente : clientes) {
+//            if(username.equals(datosCliente.getNickname())){
+//                return datosCliente;
+//            }
+//        }
+//        return null;
+//    }
+    
+    public synchronized boolean existeNickname (String nickame) {
+    	for (ClienteChat clienteChat : clientes) {
+    		System.out.println(clienteChat);
+			if (clienteChat.getNickname().equals(nickame)) {
+				return true;
+			}
+		}
+    	return false;
     }
 
-    public synchronized DatosCliente getCienteEspecifico(String username){
-        for (DatosCliente datosCliente : clientes) {
-            if(username.equals(datosCliente.getNickname())){
-                return datosCliente;
-            }
-        }
-        return null;
-    }
+	public synchronized ClienteChat addCliente(String host, int puerto, String nickname, ChatView cv) {
+		ClienteChat cliente = new ClienteChat(host, puerto, nickname, cv);
+    	clientes.add(cliente);
+        System.out.println("Cliente añadido App: " + cliente.getNickname());
+        return cliente;
+	}
     
 }

@@ -5,16 +5,15 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-import model.Cliente;
-import model.ListaClientesSingleton;
+import model.ClienteChat;
 import view.ChatView;
 
 public class Controller implements ActionListener {
 
 	private ChatView cv;
-	private Cliente cliente;
+	private ClienteChat cliente;
 	
-	public Controller(ChatView cv, Cliente cliente) {
+	public Controller(ChatView cv, ClienteChat cliente) {
 		this.cv = cv;
 		this.cliente = cliente;
 	}

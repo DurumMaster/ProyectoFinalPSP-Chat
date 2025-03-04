@@ -1,5 +1,6 @@
 package service;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,12 +17,12 @@ public class ServidorChat {
 			
 			while(true) {
 				cliente = servidor.accept();
-				System.out.println("Nueva Conexión aceptada");
 				HiloServidorChat hilo = new HiloServidorChat(cliente);
 				hilo.start();
 			}
 			
 		} catch (IOException e) {
+			resetChatLog();
 			e.printStackTrace();
 		}finally{
             try {
@@ -36,6 +37,16 @@ public class ServidorChat {
             }
         }
 	
+	}
+
+	private static void resetChatLog() {
+		System.out.println("ME VA A BORRAR EL LOG");
+	    try (FileWriter writer = new FileWriter("chatlog.txt", false)) {
+	    	writer.flush();
+	    	writer.close();
+	    } catch (IOException e) {
+	        System.out.println("Error limpiar chatlog");
+	    }
 	}
 
 }
