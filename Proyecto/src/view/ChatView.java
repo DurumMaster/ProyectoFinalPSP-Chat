@@ -7,12 +7,15 @@ import javax.swing.WindowConstants;
 import controller.Controller;
 
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JList;
 
 public class ChatView extends JFrame {
 
@@ -20,8 +23,10 @@ public class ChatView extends JFrame {
 	private JTextField txtMensaje;
 	private JButton btnEnviar;
 	private JTextArea taChat;
-	private JTextArea taUsuarios;
 	private JLabel lblCantUsuActual;
+	private JScrollPane scrollPane_1;
+	private JList<String> listaUsuariosConectados;
+	private JButton btnSalir;
 	
 	public ChatView() {
 		configurarFrame();
@@ -52,13 +57,21 @@ public class ChatView extends JFrame {
 		taChat.setEditable(false);
 		scrollPane.setViewportView(taChat);
 		
-		taUsuarios = new JTextArea();
-		taUsuarios.setBounds(601, 185, 136, 329);
-		getContentPane().add(taUsuarios);
-		
 		lblCantUsuActual = new JLabel("");
 		lblCantUsuActual.setBounds(515, 69, 200, 54);
 		getContentPane().add(lblCantUsuActual);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(531, 237, 179, 244);
+		getContentPane().add(scrollPane_1);
+		
+		listaUsuariosConectados = new JList<String>();
+		listaUsuariosConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane_1.setViewportView(listaUsuariosConectados);
+		
+		btnSalir = new JButton("Salir");
+		btnSalir.setBounds(626, 560, 89, 23);
+		getContentPane().add(btnSalir);
 		
 	}
 
@@ -87,6 +100,19 @@ public class ChatView extends JFrame {
     	taChat.append(mensaje + "\n");
     }
 
+    public void actualizarCantidadUsuarios(String cant) {
+    	lblCantUsuActual.setText("Usuarios en línea: " + cant);
+    }
+    
+    public void actualizarListaUsuarios(String listaUsuarios) {
+    	String[] usuarios = listaUsuarios.split(",");
+    	DefaultListModel<String> modelo = new DefaultListModel<>();
+    	for (String usuario : usuarios) {
+    		modelo.addElement(usuario);
+    	}
+    	listaUsuariosConectados.setModel(modelo);
+    }
+    
 	public void hacerVisible() {
 		setVisible(true);		
 	}
@@ -94,20 +120,25 @@ public class ChatView extends JFrame {
 	public void setListener (Controller c) {
 		btnEnviar.addActionListener(c);
 		txtMensaje.addActionListener(c);
+		btnSalir.addActionListener(c);
+		listaUsuariosConectados.addListSelectionListener(c);
 	}
 	
 	public JButton getBtnEnviar() {
 		return btnEnviar;
 	}
 	
+	public JButton getBtnSalir() {
+		return btnSalir;
+	}
+	
 	public JTextField getTxtMensaje() {
 		return txtMensaje;
 	}
-
-	public void actualizarCantidadUsuarios(String cant) {
-		lblCantUsuActual.setText("Usuarios en línea: " + cant);
+	
+	public JList<String> getListaUsuariosConectados() {
+		return listaUsuariosConectados;
 	}
-
 }
 
 

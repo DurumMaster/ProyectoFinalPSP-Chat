@@ -94,7 +94,10 @@ public class ClienteChat implements Runnable{
 			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String mensaje;
 			while((mensaje = fEntrada.readLine()) != null) {
-				if (mensaje.startsWith("CONECTADOS:")) {
+				if (mensaje.startsWith("USUARIOS:")) {
+	                String listaUsuarios = mensaje.substring(9);
+                    cv.actualizarListaUsuarios(listaUsuarios);
+				} else if (mensaje.startsWith("CONECTADOS:")) {
                     cv.actualizarCantidadUsuarios(mensaje.substring(11));
 	            } else {
                     cv.mostrarMensaje(mensaje);

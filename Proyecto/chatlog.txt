@@ -1,9 +1,8 @@
-susanita - Ha entrado en el chat
-susanita -  ha salido del chat
-raton - Ha entrado en el chat
-SUSANITA - Ha entrado en el chat
-BOLITA ANIS - Ha entrado en el chat
-BOLITA ANIS> /private bolita anis ay mami
-raton -  ha salido del chat
-BOLITA ANIS -  ha salido del chat
-SUSANITA -  ha salido del chat
+muffin - Ha entrado en el chat
+albondiga - Ha entrado en el chat
+muffin -  ha salido del chat
+albondiga -  ha salido del chat
+macarron - Ha entrado en el chat
+macarron -  ha salido del chat
+lupulo - Ha entrado en el chat
+lupulo -  ha salido del chat

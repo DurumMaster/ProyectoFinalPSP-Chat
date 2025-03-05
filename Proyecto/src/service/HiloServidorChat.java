@@ -49,6 +49,7 @@ public class HiloServidorChat extends Thread {
             escribirLog(mensajeEntradaUsu);
             
             actualizarCantUsuarios();
+            actualizarListaUsuarios();
             
             String mensaje;
             while ((mensaje = fEntrada.readLine()) != null) {
@@ -78,6 +79,7 @@ public class HiloServidorChat extends Thread {
         		ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
         		escribirLog(mensajeSalidaUsu);
         		actualizarCantUsuarios();
+        		actualizarListaUsuarios();
         	}
         	try {
         		if(fSalida != null) fSalida.close();
@@ -103,5 +105,9 @@ public class HiloServidorChat extends Thread {
 	private void actualizarCantUsuarios() {
 	    int count = ListaClientesServidorSingleton.getInstance().getCantUsu();
 	    ListaClientesServidorSingleton.getInstance().mandarCantidadUsuarios(count);
+	}
+	
+	private void actualizarListaUsuarios() {
+	    ListaClientesServidorSingleton.getInstance().mandarListaUsuarios();
 	}
 }

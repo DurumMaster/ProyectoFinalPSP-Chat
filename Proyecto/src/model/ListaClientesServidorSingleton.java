@@ -76,4 +76,16 @@ public class ListaClientesServidorSingleton {
         }
     }
     
+    public synchronized void mandarListaUsuarios() {
+        List<String> nicknames = new ArrayList<>();
+        for (DatosCliente cliente : clientes) {
+            nicknames.add(cliente.getNickname());
+        }
+        String listaUsuarios = "USUARIOS:" + String.join(",", nicknames);
+
+        for (DatosCliente cliente : clientes) {
+            cliente.getSalida().println(listaUsuarios);
+        }
+    }
+    
 }

@@ -33,7 +33,7 @@ public class Inicio {
 //Hacer que no se puede repetir el nickname
 //Mensaje privado
 //Contador usuarios dentro de interfaz
+//Rellenar lista con usaurios (mostrar usuarios)
+//Botón para salir (usuario)
 
-//TODO: Rellenar lista con usaurios (mostrar usuarios)
-//TODO: Botón para salir (usuario)
 //TODO: Mejorar interfaz
