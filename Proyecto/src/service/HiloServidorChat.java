@@ -34,7 +34,12 @@ public class HiloServidorChat extends Thread {
 	@Override
 	public void run() {
         try {
-            nickname = fEntrada.readLine();
+        	nickname = fEntrada.readLine();
+
+            while (ListaClientesServidorSingleton.getInstance().existeNickname(nickname)) {
+                fSalida.println("Este nickname ya está en uso. Prueba con otro:");
+                nickname = fEntrada.readLine();
+            }
             
             DatosCliente clienteServidor = new DatosCliente(nickname, socket, fSalida);
             ListaClientesServidorSingleton.getInstance().addCliente(clienteServidor);

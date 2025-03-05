@@ -13,6 +13,7 @@ public class ServidorChat {
         
 		try {
 			servidor = new ServerSocket(6969);
+			resetChatLog();
 			System.out.println("Servidor Iniciado...");
 			
 			while(true) {
@@ -22,7 +23,6 @@ public class ServidorChat {
 			}
 			
 		} catch (IOException e) {
-			resetChatLog();
 			e.printStackTrace();
 		}finally{
             try {
@@ -40,7 +40,6 @@ public class ServidorChat {
 	}
 
 	private static void resetChatLog() {
-		System.out.println("ME VA A BORRAR EL LOG");
 	    try (FileWriter writer = new FileWriter("chatlog.txt", false)) {
 	    	writer.flush();
 	    	writer.close();

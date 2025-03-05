@@ -8,7 +8,7 @@ import view.ChatView;
 public class ListaClientesSingleton {
     
     private static ListaClientesSingleton instance;
-    private static List<ClienteChat> clientes;
+    private List<ClienteChat> clientes;
     
     private ListaClientesSingleton(){
         clientes = new ArrayList<ClienteChat>();
@@ -39,9 +39,9 @@ public class ListaClientesSingleton {
 //        return null;
 //    }
     
-    public synchronized boolean existeNickname (String nickame) {
+    public boolean existeNickname (String nickame) {
     	for (ClienteChat clienteChat : clientes) {
-    		System.out.println(clienteChat);
+    		System.out.println("Lista clientes app: " + clienteChat);
 			if (clienteChat.getNickname().equals(nickame)) {
 				return true;
 			}
@@ -50,8 +50,12 @@ public class ListaClientesSingleton {
     }
 
 	public synchronized ClienteChat addCliente(String host, int puerto, String nickname, ChatView cv) {
-		ClienteChat cliente = new ClienteChat(host, puerto, nickname, cv);
-    	clientes.add(cliente);
+		ClienteChat cliente = new ClienteChat(host, puerto, cv);
+		System.out.println("Cliente añadido lista clientes: " + cliente);
+		System.out.println("Lista clientes: " + getClientes());
+		clientes.add(cliente);
+		System.out.println("Cliente añadido lista clientes: " + cliente);
+		System.out.println("Lista clientes: " + getClientes());
         System.out.println("Cliente añadido App: " + cliente.getNickname());
         return cliente;
 	}

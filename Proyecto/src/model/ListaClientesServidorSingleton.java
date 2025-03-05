@@ -25,19 +25,14 @@ public class ListaClientesServidorSingleton {
 
     public synchronized void removeCliente(String nickname){
     	clientes.removeIf(cliente -> cliente.getNickname().equals(nickname));
-        System.out.println("Cliente removido del servidor: " + nickname);
     }
 
     public synchronized void addCliente(DatosCliente cliente) {
     	clientes.add(cliente);
-        System.out.println("Cliente añadido: " + cliente.getNickname()); 
     }
     
     public synchronized void mandarMensajeTodos(String mensaje){
-    	System.out.println("Lista de clientes: " + getInstance().getClientes());
-    	System.out.println("Envio mensaje a todos: " + mensaje);
     	for (DatosCliente datosCliente : clientes) {
-        	System.out.println(datosCliente.toString());
             datosCliente.getSalida().println(mensaje);
             datosCliente.getSalida().flush();
         }
@@ -45,6 +40,17 @@ public class ListaClientesServidorSingleton {
     
     public void getCantUsu() {
     	System.out.println("Usuarios en el servidor:" + clientes.size());
+    }
+    
+    public synchronized boolean existeNickname (String nickame) {
+    	System.out.println("VALIDO ESTE NICKNAME: " + nickame);
+    	System.out.println("LISTA: " + getClientes());
+    	for (DatosCliente cliente : clientes) {
+			if (cliente.getNickname().equals(nickame)) {
+				return true;
+			}
+		}
+    	return false;
     }
 
     public synchronized DatosCliente getCienteEspecifico(String username){

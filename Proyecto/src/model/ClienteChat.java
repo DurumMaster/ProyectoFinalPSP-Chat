@@ -15,21 +15,25 @@ public class ClienteChat implements Runnable{
 	
 	private Socket socket;
 	private PrintWriter fSalida;
+	private BufferedReader fEntrada;
 	private ChatView cv;
 	private String nickname;
 	
-	public ClienteChat(String host, int puerto, String nickname, ChatView cv) {
+	public ClienteChat(String host, int puerto, ChatView cv) {
 		try {
 			socket = new Socket(host, puerto);
 			
 			fSalida = new PrintWriter(socket.getOutputStream(), true);
+			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
 			this.cv = cv;
-			this.nickname = nickname;
+			this.nickname = cv.solicitarNickname();
+			
+			enviarNicknameAlServidor();
 			
 			cargarChatLog();
 			
-			enviarMensaje(nickname);
+			
 			
 			new Thread(this).start();
 		} catch (Exception e) {
@@ -38,6 +42,23 @@ public class ClienteChat implements Runnable{
 			System.exit(0);
 		}
 	}
+	
+	   private void enviarNicknameAlServidor() {
+	        try {
+	        	enviarMensaje(nickname);
+	            String respuesta = fEntrada.readLine();
+
+	            while (respuesta.equals("Este nickname ya está en uso. Prueba con otro:")) {
+	            	JOptionPane.showMessageDialog(cv, respuesta, "Error",  JOptionPane.ERROR_MESSAGE);
+	                this.nickname = cv.solicitarNickname();
+	                enviarMensaje(nickname);
+	                respuesta = fEntrada.readLine();
+	            }
+
+	        } catch (Exception e) {
+	            System.out.println("Error al enviar nickname: " + e.getMessage());
+	        }
+	    }
 	
 	private void cargarChatLog() {
 	    try (BufferedReader br = new BufferedReader(new FileReader("chatlog.txt"))) {
