@@ -1,8 +1,2 @@
-muffin - Ha entrado en el chat
-albondiga - Ha entrado en el chat
-muffin -  ha salido del chat
-albondiga -  ha salido del chat
-macarron - Ha entrado en el chat
-macarron -  ha salido del chat
-lupulo - Ha entrado en el chat
-lupulo -  ha salido del chat
+ljk - Ha entrado en el chat
+ljk - Ha salido del chat

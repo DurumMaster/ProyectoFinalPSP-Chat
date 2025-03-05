@@ -16,12 +16,12 @@ public class Controller implements ActionListener, ListSelectionListener {
 
 	private ChatView cv;
 	private ClienteChat cliente;
-	
+
 	public Controller(ChatView cv, ClienteChat cliente) {
 		this.cv = cv;
 		this.cliente = cliente;
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() instanceof JButton) {
@@ -38,18 +38,19 @@ public class Controller implements ActionListener, ListSelectionListener {
 	}
 
 	private void salir() {
-		int opcion = JOptionPane.showConfirmDialog(cv, "¿Estás seguro de que quieres salir del chat?", "Salir", JOptionPane.YES_NO_OPTION);
-		
+		int opcion = JOptionPane.showConfirmDialog(cv, "¿Estás seguro de que quieres salir del chat?", "Salir",
+				JOptionPane.YES_NO_OPTION);
+
 		if (opcion == JOptionPane.YES_OPTION) {
 			JOptionPane.showMessageDialog(cv, "Has abandonado el chat.", "Salir", JOptionPane.INFORMATION_MESSAGE);
 			cliente.cerrarConexion();
-			System.exit(0);			
-		}	
+			System.exit(0);
+		}
 	}
 
 	private void enviarMensaje() {
 		String mensaje = cv.getTxtMensaje().getText().trim();
-		if(!mensaje.isEmpty()) {
+		if (!mensaje.isEmpty()) {
 			cliente.enviarMensaje(mensaje);
 			cv.getTxtMensaje().setText("");
 		}
@@ -62,8 +63,6 @@ public class Controller implements ActionListener, ListSelectionListener {
 			cv.getTxtMensaje().setText("/privado " + usuarioSelec + " ");
 			cv.getTxtMensaje().requestFocus();
 		}
-		
 	}
-	
-	
+
 }
