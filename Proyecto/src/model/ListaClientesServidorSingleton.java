@@ -68,12 +68,6 @@ public class ListaClientesServidorSingleton {
                 cliente.getSalida().println("[PRIVADO de " + remitente + "]: " + mensaje);
             }
         }
-        for (DatosCliente cliente : clientes) {
-            if (cliente.getNickname().equals(remitente)) {
-                cliente.getSalida().println("El usuario '" + destinatario + "' no está conectado.");
-                return;
-            }
-        }
     }
     
 }

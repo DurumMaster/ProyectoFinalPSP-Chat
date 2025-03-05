@@ -1,8 +1,5 @@
-pedro - Ha entrado en el chat
-ana - Ha entrado en el chat
-ana> hola
-pedro> que tal
-pedro> muy bien
-ana> super
-aurelio - Ha entrado en el chat
-aurelio> hola
+raul - Ha entrado en el chat
+Sandra - Ha entrado en el chat
+Sandra> hola
+raul> adios
+Sandra -  ha salido del chat

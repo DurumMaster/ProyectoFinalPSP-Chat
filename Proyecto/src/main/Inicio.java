@@ -34,6 +34,6 @@ public class Inicio {
 
 //TODO: Rellenar lista con usaurios (mostrar usuarios)
 //TODO: Contador usuarios dentro de interfaz
-//TODO: Mensaje privado
+//Mensaje privado
 //TODO: Botón para salir (usuario)
 //TODO: Mejorar interfaz

@@ -8,7 +8,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 import view.ChatView;
 
@@ -95,11 +94,7 @@ public class ClienteChat implements Runnable{
 			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String mensaje;
 			while((mensaje = fEntrada.readLine()) != null) {
-				if (mensaje.startsWith("[PRIVADO")) {
-                    cv.mostrarMensaje(mensaje);
-	            } else {
-                    cv.mostrarMensaje(mensaje);
-	            }
+                cv.mostrarMensaje(mensaje); 
 			}
 			
 			
