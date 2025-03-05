@@ -31,9 +31,9 @@ public class Inicio {
 //Borrar contenido txt chatlog
 //Pulsar enter para enviar mensaje
 //Hacer que no se puede repetir el nickname
+//Mensaje privado
+//Contador usuarios dentro de interfaz
 
 //TODO: Rellenar lista con usaurios (mostrar usuarios)
-//TODO: Contador usuarios dentro de interfaz
-//Mensaje privado
 //TODO: Botón para salir (usuario)
 //TODO: Mejorar interfaz

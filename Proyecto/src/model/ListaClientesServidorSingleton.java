@@ -38,13 +38,13 @@ public class ListaClientesServidorSingleton {
         }
     }
     
-    public void getCantUsu() {
-    	System.out.println("Usuarios en el servidor:" + clientes.size());
+    public int getCantUsu() {
+    	int cant = clientes.size();
+    	System.out.println("Usuarios en el servidor:" + cant);
+    	return cant;
     }
     
     public synchronized boolean existeNickname (String nickame) {
-    	System.out.println("VALIDO ESTE NICKNAME: " + nickame);
-    	System.out.println("LISTA: " + getClientes());
     	for (DatosCliente cliente : clientes) {
 			if (cliente.getNickname().equals(nickame)) {
 				return true;
@@ -67,6 +67,12 @@ public class ListaClientesServidorSingleton {
             if (cliente.getNickname().equals(destinatario)) {
                 cliente.getSalida().println("[PRIVADO de " + remitente + "]: " + mensaje);
             }
+        }
+    }
+    
+    public synchronized void mandarCantidadUsuarios(int cantidad) {
+        for (DatosCliente cliente : clientes) {
+            cliente.getSalida().println("CONECTADOS:" + cantidad);
         }
     }
     

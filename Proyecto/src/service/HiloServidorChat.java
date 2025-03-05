@@ -37,17 +37,18 @@ public class HiloServidorChat extends Thread {
         	nickname = fEntrada.readLine();
 
             while (ListaClientesServidorSingleton.getInstance().existeNickname(nickname)) {
-                fSalida.println("Este nickname ya está en uso. Prueba con otro:");
+                fSalida.println("Este nickname ya está en uso. Prueba con otro.");
                 nickname = fEntrada.readLine();
             }
             
             DatosCliente clienteServidor = new DatosCliente(nickname, socket, fSalida);
             ListaClientesServidorSingleton.getInstance().addCliente(clienteServidor);
-            ListaClientesServidorSingleton.getInstance().getCantUsu();
             
             String mensajeEntradaUsu = nickname + " - Ha entrado en el chat";
             ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeEntradaUsu);
             escribirLog(mensajeEntradaUsu);
+            
+            actualizarCantUsuarios();
             
             String mensaje;
             while ((mensaje = fEntrada.readLine()) != null) {
@@ -71,11 +72,13 @@ public class HiloServidorChat extends Thread {
             System.out.println("Ha ocurrido un error en el hilo del servidor" + e.getMessage());
             System.out.println(e.getStackTrace().toString());
         } finally {
-        	String mensajeSalidaUsu = nickname + " -  ha salido del chat";
-        	ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
-        	escribirLog(mensajeSalidaUsu);
-        	ListaClientesServidorSingleton.getInstance().removeCliente(nickname);
-        	ListaClientesServidorSingleton.getInstance().getCantUsu();
+        	if (nickname != null && ListaClientesServidorSingleton.getInstance().existeNickname(nickname)) {
+        		ListaClientesServidorSingleton.getInstance().removeCliente(nickname);
+        		String mensajeSalidaUsu = nickname + " -  ha salido del chat";
+        		ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeSalidaUsu);
+        		escribirLog(mensajeSalidaUsu);
+        		actualizarCantUsuarios();
+        	}
         	try {
         		if(fSalida != null) fSalida.close();
         		if(fEntrada != null) fEntrada.close();
@@ -95,5 +98,10 @@ public class HiloServidorChat extends Thread {
 			System.out.println("Error al escribir en el fichero" + e.getMessage());
 			e.printStackTrace();
 		}
+	}
+	
+	private void actualizarCantUsuarios() {
+	    int count = ListaClientesServidorSingleton.getInstance().getCantUsu();
+	    ListaClientesServidorSingleton.getInstance().mandarCantidadUsuarios(count);
 	}
 }

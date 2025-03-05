@@ -57,7 +57,7 @@ public class ChatView extends JFrame {
 		getContentPane().add(taUsuarios);
 		
 		lblCantUsuActual = new JLabel("");
-		lblCantUsuActual.setBounds(619, 102, 96, 21);
+		lblCantUsuActual.setBounds(515, 69, 200, 54);
 		getContentPane().add(lblCantUsuActual);
 		
 	}
@@ -102,6 +102,10 @@ public class ChatView extends JFrame {
 	
 	public JTextField getTxtMensaje() {
 		return txtMensaje;
+	}
+
+	public void actualizarCantidadUsuarios(String cant) {
+		lblCantUsuActual.setText("Usuarios en línea: " + cant);
 	}
 
 }

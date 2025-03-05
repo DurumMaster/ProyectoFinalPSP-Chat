@@ -48,7 +48,7 @@ public class ClienteChat implements Runnable{
 	        	enviarMensaje(nickname);
 	            String respuesta = fEntrada.readLine();
 
-	            while (respuesta.equals("Este nickname ya está en uso. Prueba con otro:")) {
+	            while (respuesta.equals("Este nickname ya está en uso. Prueba con otro.")) {
 	            	JOptionPane.showMessageDialog(cv, respuesta, "Error",  JOptionPane.ERROR_MESSAGE);
 	                this.nickname = cv.solicitarNickname();
 	                enviarMensaje(nickname);
@@ -94,7 +94,11 @@ public class ClienteChat implements Runnable{
 			fEntrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String mensaje;
 			while((mensaje = fEntrada.readLine()) != null) {
-                cv.mostrarMensaje(mensaje); 
+				if (mensaje.startsWith("CONECTADOS:")) {
+                    cv.actualizarCantidadUsuarios(mensaje.substring(11));
+	            } else {
+                    cv.mostrarMensaje(mensaje);
+	            }
 			}
 			
 			

@@ -1,5 +1,9 @@
-raul - Ha entrado en el chat
-Sandra - Ha entrado en el chat
-Sandra> hola
-raul> adios
-Sandra -  ha salido del chat
+susanita - Ha entrado en el chat
+susanita -  ha salido del chat
+raton - Ha entrado en el chat
+SUSANITA - Ha entrado en el chat
+BOLITA ANIS - Ha entrado en el chat
+BOLITA ANIS> /private bolita anis ay mami
+raton -  ha salido del chat
+BOLITA ANIS -  ha salido del chat
+SUSANITA -  ha salido del chat
