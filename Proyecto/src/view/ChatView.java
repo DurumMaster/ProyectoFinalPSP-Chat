@@ -16,6 +16,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class ChatView extends JFrame {
 
@@ -24,11 +27,11 @@ public class ChatView extends JFrame {
 	private JButton btnEnviar;
 	private JTextArea taChat;
 	private JLabel lblCantUsuActual;
-	private JScrollPane scrollPane_1;
 	private JList<String> listaUsuariosConectados;
 	private JButton btnSalir;
 	
 	public ChatView() {
+		getContentPane().setBackground(new Color(0, 0, 0));
 		configurarFrame();
 		configurarComponentes();
 	}
@@ -37,41 +40,59 @@ public class ChatView extends JFrame {
 		getContentPane().setLayout(null);
 		
 		txtMensaje = new JTextField();
-		txtMensaje.setBounds(66, 612, 471, 66);
+		txtMensaje.setToolTipText("");
+		txtMensaje.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtMensaje.setBounds(388, 683, 319, 64);
 		getContentPane().add(txtMensaje);
 		txtMensaje.setColumns(10);
 		
-		btnEnviar = new JButton("Enviar");
+		btnEnviar = new JButton("");
+		btnEnviar.setBackground(new Color(0, 0, 0));
+		btnEnviar.setIcon(new ImageIcon(ChatView.class.getResource("/img/avion-de-papel.png")));
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnEnviar.setBounds(601, 623, 136, 45);
+		btnEnviar.setBounds(706, 683, 64, 64);
 		getContentPane().add(btnEnviar);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(66, 69, 410, 470);
+		scrollPane.setBounds(388, 128, 382, 545);
 		getContentPane().add(scrollPane);
 		
 		taChat = new JTextArea();
-		taChat.setEditable(false);
 		scrollPane.setViewportView(taChat);
+		taChat.setEditable(false);
 		
-		lblCantUsuActual = new JLabel("");
-		lblCantUsuActual.setBounds(515, 69, 200, 54);
-		getContentPane().add(lblCantUsuActual);
-		
-		scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(531, 237, 179, 244);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 393, 368, 354);
 		getContentPane().add(scrollPane_1);
 		
 		listaUsuariosConectados = new JList<String>();
-		listaUsuariosConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(listaUsuariosConectados);
+		listaUsuariosConectados.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
-		btnSalir = new JButton("Salir");
-		btnSalir.setBounds(626, 560, 89, 23);
+		btnSalir = new JButton("Abandonar la sala");
+		btnSalir.setBackground(new Color(255, 0, 0));
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 14));
+		btnSalir.setBounds(388, 83, 382, 34);
 		getContentPane().add(btnSalir);
+		
+		lblCantUsuActual = new JLabel("Usuarios en línea:");
+		lblCantUsuActual.setBounds(388, 30, 236, 25);
+		getContentPane().add(lblCantUsuActual);
+		lblCantUsuActual.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblCantUsuActual.setForeground(new Color(236, 121, 187));
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(0, 0, 382, 117);
+		getContentPane().add(lblLogo);
+		lblLogo.setIcon(new ImageIcon(ChatView.class.getResource("/img/logo_psp.JPG")));
+		
+		JLabel lblFoto = new JLabel("");
+		lblFoto.setIcon(new ImageIcon(ChatView.class.getResource("/img/foto.png")));
+		lblFoto.setBounds(10, 128, 368, 254);
+		getContentPane().add(lblFoto);
 		
 	}
 
@@ -79,6 +100,7 @@ public class ChatView extends JFrame {
 		setSize(800,800);
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
+		setResizable(false);
 	}
 	
     public String solicitarNickname() {
@@ -92,7 +114,7 @@ public class ChatView extends JFrame {
                 JOptionPane.showMessageDialog(this, "El nickname no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } while (nickname.trim().isEmpty());
-        setTitle("Chat divertido: " + nickname);
+        setTitle("ChatHub: " + nickname);
         return nickname;
     }
     

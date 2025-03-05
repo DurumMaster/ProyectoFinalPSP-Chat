@@ -1,2 +1,11 @@
-ljk - Ha entrado en el chat
-ljk - Ha salido del chat
+manolo - Ha entrado en el chat
+manolo - Ha salido del chat
+paloma - Ha entrado en el chat
+paloma - Ha salido del chat
+pepe - Ha entrado en el chat
+pepe> hola a todos
+sandra - Ha entrado en el chat
+manolo - Ha entrado en el chat
+pepe> adios
+pepe - Ha salido del chat
+sandra> uy que se ha ido
