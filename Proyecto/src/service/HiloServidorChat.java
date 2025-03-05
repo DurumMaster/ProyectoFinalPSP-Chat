@@ -49,14 +49,22 @@ public class HiloServidorChat extends Thread {
             ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeEntradaUsu);
             escribirLog(mensajeEntradaUsu);
             
-            String mensaje, mensajePreparado;
-            while (true) {
-                mensaje = fEntrada.readLine();
-                
-                mensajePreparado = nickname + "> " + mensaje;
-                
-                ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajePreparado);
-                escribirLog(mensajePreparado);
+            String mensaje;
+            while ((mensaje = fEntrada.readLine()) != null) {
+            	if (mensaje.startsWith("/privado")) {
+                    String[] partes = mensaje.split(" ", 3);
+                    if (partes.length == 3) {
+                        String destinatario = partes[1];
+                        String contenido = partes[2];
+                        ListaClientesServidorSingleton.getInstance().enviarMensajePrivado(nickname, destinatario, contenido);
+                    } else {
+                        fSalida.println("Formato incorrecto. Usa: /privado <nickname> <mensaje>");
+                    }
+                } else {
+                    String mensajeFormateado = nickname + "> " + mensaje;
+                    ListaClientesServidorSingleton.getInstance().mandarMensajeTodos(mensajeFormateado);
+                    escribirLog(mensajeFormateado);
+                }
             }
             
         } catch (Exception e) {

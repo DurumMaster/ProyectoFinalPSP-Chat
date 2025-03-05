@@ -4,7 +4,6 @@ import java.awt.EventQueue;
 
 import controller.Controller;
 import model.ClienteChat;
-import model.ListaClientesSingleton;
 import view.ChatView;
 
 public class Inicio {

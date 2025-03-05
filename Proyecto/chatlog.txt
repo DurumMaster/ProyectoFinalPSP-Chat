@@ -1,8 +1,8 @@
-unijio - Ha entrado en el chat
-es una locura - Ha entrado en el chat
-es una locura -  ha salido del chat
-unijio -  ha salido del chat
-uugh - Ha entrado en el chat
-uugh -  ha salido del chat
-eegh - Ha entrado en el chat
-eegh -  ha salido del chat
+pedro - Ha entrado en el chat
+ana - Ha entrado en el chat
+ana> hola
+pedro> que tal
+pedro> muy bien
+ana> super
+aurelio - Ha entrado en el chat
+aurelio> hola
